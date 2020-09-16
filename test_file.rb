@@ -1,2 +1,5 @@
-puts "Уилл Робинсон, Вас подстерегает опасность" if radiation > 3000
-distance = distance * 1.2 while distance < 100
+def digital_root(n)
+    n < 10 ? n : digital_root(n.digits.sum)
+end
+
+puts digital_root(156)
