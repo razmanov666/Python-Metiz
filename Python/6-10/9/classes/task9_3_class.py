@@ -1,6 +1,7 @@
 class User():
     """Класс хранящий данные о пользователе"""
-    def __init__(self, first_name, last_name, username, password):
+    def __init__(self, first_name='1', last_name='1',
+                 username='1', password='1'):
         self.first = first_name
         self.last = last_name
         self.username = username
