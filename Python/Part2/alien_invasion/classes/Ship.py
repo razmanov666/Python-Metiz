@@ -4,35 +4,44 @@ class Ship:
     """A class to manage the ship."""
  
     def __init__(self, ai_settings, screen):
-        """Initialize the ship and set its starting position."""
+        """Инициализирует корабль и задает его начальную позицию."""
         self.screen = screen
         self.settings = ai_settings
         self.screen_rect = screen.get_rect()
 
-        # Load the ship image and get its rect.
+        # Загрузка изображения корабля.
         self.image = pygame.image.load('images/ship.bmp')
         self.rect = self.image.get_rect()
 
-        # Start each new ship at the bottom center of the screen.
+        # Каждый новый корабль появляется у нижнего края экрана.
         self.rect.midbottom = self.screen_rect.midbottom
 
-        # Store a decimal value for the ship's horizontal position.
+        # Сохранение вещественной координаты центра корабля.
         self.centerx = float(self.rect.x)
+        self.centery = float(self.rect.y)
 
-        # Movement flags
+        # Флаги перемещения
         self.moving_right = False
         self.moving_left = False
+        self.moving_up = False
+        self.moving_down = False
+        print(self.screen_rect)
 
     def update(self):
-        """Update the ship's position based on movement flags."""
-        # Update the ship's x value, not the rect.
+        """Обновляет позицию корабля с учетом флагов."""
+        # Обновляется атрибут center, не rect.
         if self.moving_right and self.rect.right < self.screen_rect.right:
             self.centerx += self.settings.ship_speed_factor
         if self.moving_left and self.rect.left > 0:
             self.centerx -= self.settings.ship_speed_factor
+        if self.moving_up and self.rect.top > 0:
+            self.centery -= self.settings.ship_speed_factor
+        if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
+            self.centery += self.settings.ship_speed_factor
 
-        # Update rect object from self.x.
+        # Обновление атрибута rect на основании self.center.
         self.rect.centerx = self.centerx
+        self.rect.centery = self.centery
 
     def blitme(self):
         """Draw the ship at its current location."""
