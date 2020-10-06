@@ -4,6 +4,7 @@ sys.path.insert(0, 'classes')
 sys.path.insert(1, 'moduls')
 from Settings import Settings
 from Ship import Ship
+from pygame.sprite import Group
 from Character import Character
 import game_functions as gf
 
@@ -19,12 +20,16 @@ def run_game():
 
     # Создание объектов
     ship = Ship(ai_settings ,screen)
+
+    # Создание группы хранения пуль
+    bullets = Group()
     hero = Character(screen)
 
     # Запуск основного цикла игры.
     while True:
-        gf.check_events(ship)
+        gf.check_events(ai_settings, screen, ship, bullets)
         ship.update()
-        gf.update_screen(ai_settings, screen, ship, hero)
+        bullets.update()
+        gf.update_screen(ai_settings, screen, ship, bullets)
 
 run_game()
