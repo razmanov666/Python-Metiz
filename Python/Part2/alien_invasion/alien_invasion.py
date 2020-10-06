@@ -19,7 +19,7 @@ def run_game():
     pygame.display.set_caption("Alien Invasion")
 
     # Создание объектов
-    ship = Ship(ai_settings ,screen)
+    ship = Ship(ai_settings, screen)
 
     # Создание группы хранения пуль
     bullets = Group()

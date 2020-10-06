@@ -1,6 +1,6 @@
 import pygame
  
-class Ship:
+class Ship():
     """A class to manage the ship."""
  
     def __init__(self, ai_settings, screen):
@@ -8,7 +8,7 @@ class Ship:
         self.screen = screen
         self.settings = ai_settings
         self.screen_rect = screen.get_rect()
-
+        
         # Загрузка изображения корабля.
         self.image = pygame.image.load('images/ship.bmp')
         self.rect = self.image.get_rect()
@@ -25,8 +25,7 @@ class Ship:
         self.moving_left = False
         self.moving_up = False
         self.moving_down = False
-        print(self.screen_rect)
-
+        
     def update(self):
         """Обновляет позицию корабля с учетом флагов."""
         # Обновляется атрибут center, не rect.
