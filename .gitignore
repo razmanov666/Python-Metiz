@@ -1,7 +1,2 @@
-<<<<<<< HEAD
-Python/Part2/alien_invasion/classes/__pycache__/Settings.cpython-36.pyc
-Python/Part2/alien_invasion/classes/__pycache__/Ship.cpython-36.pyc
-Python/Part2/alien_invasion/moduls/__pycache__/game_functions.cpython-36.pyc
-=======
 *.pyc
->>>>>>> master
+
