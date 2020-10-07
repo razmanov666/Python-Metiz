@@ -69,14 +69,14 @@ def update_screen(ai_settings, screen, ship, bullets):
     # Отображаение последнего прорисованного экрана.
     pygame.display.flip()
 
-def update_bullets(bullets, ai_settings):
+def update_bullets(bullets):
     """
     Обновление пуль на экране.
     """
     bullets.update()
     # Удаление пуль вышедших за край экрана.
     for bullet in bullets.copy():
-        if bullet.rect.right >= ai_settings.screen_width:
+        if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
 
 def fire_bullet(ai_settings, screen, ship, bullets):
