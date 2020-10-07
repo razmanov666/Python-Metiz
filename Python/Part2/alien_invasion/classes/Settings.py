@@ -14,8 +14,9 @@ class Settings():
         self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = (0, 60, 60)
+        self.bullets_allowed = 5
 
         # Параметры экрана
         self.screen_width = 1366
-        self.screen_height = 710
+        self.screen_height = 768
         self.bg_color = (0, 100, 255)
