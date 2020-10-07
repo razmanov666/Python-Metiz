@@ -5,7 +5,7 @@ class Bullet(Sprite):
     """
     Класс для управления пулями, выпущенными кораблем.
     """
-    def __init__ (self, screen, ai_settings, ship):
+    def __init__ (self, ai_settings, screen, ship):
         """
         Создает объект пуль в текущей позиции корабля.
         """
