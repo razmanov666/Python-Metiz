@@ -15,12 +15,17 @@ def run_game():
     ai_settings = Settings()
     screen = pygame.display.set_mode(
 <<<<<<< HEAD
+<<<<<<< HEAD
                 (ai_settings.screen_width, ai_settings.screen_height)
                             ,pygame.FULLSCREEN)
 =======
                 (ai_settings.screen_width, ai_settings.screen_height), 
                                 pygame.FULLSCREEN)
 >>>>>>> d8d5ea5... Revert "Merge pull request #7 from razmanov666/master"
+=======
+                (ai_settings.screen_width, ai_settings.screen_height)
+                            ,pygame.FULLSCREEN)
+>>>>>>> e076e80... feat: add alien & fix git trouble
         
     pygame.display.set_caption("Alien Invasion")
 
@@ -37,9 +42,13 @@ def run_game():
         ship.update()
         gf.update_bullets(bullets)
 <<<<<<< HEAD
+<<<<<<< HEAD
         gf.update_screen(ai_settings, screen, ship, bullets, hero)
 =======
         gf.update_screen(ai_settings, screen, ship, bullets)
 >>>>>>> d8d5ea5... Revert "Merge pull request #7 from razmanov666/master"
+=======
+        gf.update_screen(ai_settings, screen, ship, bullets, hero)
+>>>>>>> e076e80... feat: add alien & fix git trouble
 
 run_game()
