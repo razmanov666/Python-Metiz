@@ -16,7 +16,8 @@ class Character():
         self.screen_rect = screen.get_rect()
         
         # Сашка появляется по центру
-        
+        self.rect.x = self.rect.width
+        self.rect.y = self.rect.height
     
     def blitme(self):
         """

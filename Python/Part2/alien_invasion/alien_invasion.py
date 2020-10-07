@@ -13,7 +13,9 @@ def run_game():
     """Инициализирует pygame, setting и объект экрана"""
     pygame.init()
     ai_settings = Settings()
+<<<<<<< HEAD
     screen = pygame.display.set_mode(
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -36,6 +38,12 @@ def run_game():
                 (ai_settings.screen_width, ai_settings.screen_height)
                             ,pygame.FULLSCREEN)
 >>>>>>> 1f7a2aa... feat: add alien & fix git trouble
+=======
+                (ai_settings.screen_width, ai_settings.screen_height))
+>>>>>>> b38a3e9... fix FULLscr problem
+=======
+    screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
+>>>>>>> a7f71e8... clean
         
     pygame.display.set_caption("Alien Invasion")
 
@@ -66,6 +74,10 @@ def run_game():
 >>>>>>> e076e80... feat: add alien & fix git trouble
 =======
         gf.update_screen(ai_settings, screen, ship, bullets, hero)
+<<<<<<< HEAD
 >>>>>>> 1f7a2aa... feat: add alien & fix git trouble
+=======
+        # ship.restore_icon()
+>>>>>>> e086ba9... add: some move animation
 
 run_game()
