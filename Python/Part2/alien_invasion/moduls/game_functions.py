@@ -7,11 +7,6 @@ def check_keydown_events(event, ship, screen, ai_settings, bullets):
     """
     Реагирует на нажитие клавиш.
     """
-    # print('event is ' + str(type(event)))
-    # print('ship is ' + str(type(ship)))
-    # print('ai_settings is ' + str(type(ai_settings)))
-    # print('screen is ' + str(type(screen)))
-    # print('bullets is ' + str(type(bullets)))
     if event.key == pygame.K_RIGHT:
         ship.moving_right = True
     elif event.key == pygame.K_LEFT:
@@ -65,7 +60,7 @@ def update_screen(ai_settings, screen, ship, bullets, hero):
     for bullet in bullets:
         bullet.draw_bullet()
     ship.blitme()
-    hero.blitme()
+    # hero.blitme()
     # Отображаение последнего прорисованного экрана.
     pygame.display.flip()
 
@@ -86,3 +81,5 @@ def fire_bullet(ai_settings, screen, ship, bullets):
     if len(bullets) < ai_settings.bullets_allowed:
         new_bullet = Bullet(ai_settings, screen, ship)
         bullets.add(new_bullet)
+
+
