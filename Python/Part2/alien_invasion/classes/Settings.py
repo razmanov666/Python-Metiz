@@ -12,9 +12,9 @@ class Settings():
         # Параметры пули
         self.bullet_speed = 7
         self.bullet_width = 3
-        self.bullet_height = 15
-        self.bullet_color = (0, 60, 60)
-        self.bullets_allowed = 5
+        self.bullet_height = 9
+        self.bullet_color = (255, 0, 0)
+        self.bullets_allowed = 3
 
         # Параметры экрана
         self.screen_width = 1366
