@@ -1,25 +1,34 @@
 import sys
 import pygame
+sys.path.append('/home/kurama/Документы/Training/Python/Part2/alien_invasion/classes')
 from Bullet import Bullet
 
-def check_keydown_events(event, ship, ai_settings, screen, bullets):
+def check_keydown_events(event, ship, screen, ai_settings, bullets):
     """
     Реагирует на нажитие клавиш.
     """
+    # print('event is ' + str(type(event)))
+    # print('ship is ' + str(type(ship)))
+    # print('ai_settings is ' + str(type(ai_settings)))
+    # print('screen is ' + str(type(screen)))
+    # print('bullets is ' + str(type(bullets)))
     if event.key == pygame.K_RIGHT:
         ship.moving_right = True
     elif event.key == pygame.K_LEFT:
         ship.moving_left = True
     elif event.key == pygame.K_UP:
-        ship.moving_up = True
+        ship.moving_up = True 
     elif event.key == pygame.K_DOWN:
         ship.moving_down = True
-    elif event.key == pygame.K_SPACE:
-        # Создание новой пули и включение ее в группу
-        new_bullet = Bullet(ai_settings, screen, ship)
-        bullets.add(new_bullet)
     elif event.key == pygame.K_q:
         sys.exit()
+    elif event.key == pygame.K_ESCAPE:
+        sys.exit()
+    if event.key == pygame.K_SPACE:
+        # Создание новой пули и включение ее в группу
+        if len(bullets) < ai_settings.bullets_allowed:
+            new_bullet = Bullet(ai_settings, screen, ship)
+            bullets.add(new_bullet)
 
 def check_keyup_events(event, ship):
     """
