@@ -11,13 +11,12 @@ class Character():
         self.screen = screen
 
         # Загрузка изображения Сашки
-        self.image = pygame.image.load("images/hero_sashka.bmp")
+        self.image = pygame.image.load("images/hero_sashka_small.bmp")
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
         
         # Сашка появляется по центру
-        self.rect.center = self.screen_rect.center
-        self.rect.center = self.screen_rect.center
+        
     
     def blitme(self):
         """
