@@ -10,14 +10,12 @@ class Ship():
         self.screen_rect = screen.get_rect()
         
         # Загрузка изображения корабля.
-        self.image = pygame.image.load('images/ship_left_to_right.bmp')
+        self.image = pygame.image.load('images/ship.bmp')
         self.rect = self.image.get_rect()
 
-        # Каждый новый корабль появляется у левой середины экрана.
-        self.rect.centery = self.screen_rect.centery
-        self.rect.left = int(ai_settings.screen_width*0.0169)
-        # self.rect.centery = self.screen_rect.centery
-        
+        # Каждый новый корабль появляется у нижнего края экрана.
+        self.rect.midbottom = self.screen_rect.midbottom
+
         # Сохранение вещественной координаты центра корабля.
         self.centerx = float(self.rect.x)
         self.centery = float(self.rect.y)
