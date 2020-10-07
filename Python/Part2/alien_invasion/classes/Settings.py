@@ -19,4 +19,4 @@ class Settings():
         # Параметры экрана
         self.screen_width = 1366
         self.screen_height = 768
-        self.bg_color = (0, 0, 0)
+        self.bg_color = (0, 100, 255)
