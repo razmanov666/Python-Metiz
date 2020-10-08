@@ -14,8 +14,13 @@ def run_game():
     pygame.init()
     ai_settings = Settings()
     screen = pygame.display.set_mode(
-                (ai_settings.screen_width, ai_settings.screen_height)
-                            ,pygame.FULLSCREEN)
+                (ai_settings.screen_width, ai_settings.screen_height))
+<<<<<<< HEAD
+=======
+    screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
+>>>>>>> a7f71e8... clean
+=======
+>>>>>>> b0c51c1... Revert "Merge branch 'master' into modifed"
         
     pygame.display.set_caption("Alien Invasion")
 

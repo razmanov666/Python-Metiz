@@ -6,6 +6,6 @@ friend_pizzas = pizzas[:]
 pizzas.append('123')
 friend_pizzas.append('456')
 print ('My favorite pizzas are: ')
-print pizzas
+print (pizzas)
 print ("\nMy friend's favorite pizzas are: ")
-print friend_pizzas
+print (friend_pizzas)
