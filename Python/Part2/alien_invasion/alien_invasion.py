@@ -13,7 +13,6 @@ def run_game():
     """Инициализирует pygame, setting и объект экрана"""
     pygame.init()
     ai_settings = Settings()
-<<<<<<< HEAD
     screen = pygame.display.set_mode(
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -40,10 +39,13 @@ def run_game():
 >>>>>>> 1f7a2aa... feat: add alien & fix git trouble
 =======
                 (ai_settings.screen_width, ai_settings.screen_height))
+<<<<<<< HEAD
 >>>>>>> b38a3e9... fix FULLscr problem
 =======
     screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
 >>>>>>> a7f71e8... clean
+=======
+>>>>>>> b0c51c1... Revert "Merge branch 'master' into modifed"
         
     pygame.display.set_caption("Alien Invasion")
 

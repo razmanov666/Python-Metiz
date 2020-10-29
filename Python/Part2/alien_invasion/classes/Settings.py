@@ -18,10 +18,13 @@ class Settings():
 
         # Параметры экрана
         self.screen_width = 1366
-<<<<<<< HEAD
         self.screen_height = 720
+<<<<<<< HEAD
         self.bg_color = (0 , 60, 70)
 =======
         self.screen_height = 740
         self.bg_color = (0, 0, 0)
 >>>>>>> a7f71e8... clean
+=======
+        self.bg_color = (0 , 60, 70)
+>>>>>>> b0c51c1... Revert "Merge branch 'master' into modifed"
