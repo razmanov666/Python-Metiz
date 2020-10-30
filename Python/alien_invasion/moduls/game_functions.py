@@ -1,7 +1,8 @@
 import sys
 import pygame
-sys.path.append('/home/kurama/Документы/Training/Python/Part2/alien_invasion/classes')
+sys.path.append('classes')
 from Bullet import Bullet
+
 
 def check_keydown_events(event, ship, screen, ai_settings, bullets):
     """
@@ -12,7 +13,7 @@ def check_keydown_events(event, ship, screen, ai_settings, bullets):
     elif event.key == pygame.K_LEFT:
         ship.moving_left = True
     elif event.key == pygame.K_UP:
-        ship.moving_up = True 
+        ship.moving_up = True
     elif event.key == pygame.K_DOWN:
         ship.moving_down = True
     elif event.key == pygame.K_q:
@@ -22,7 +23,8 @@ def check_keydown_events(event, ship, screen, ai_settings, bullets):
     if event.key == pygame.K_SPACE:
         # Создание новой пули и включение ее в группу
         fire_bullet(ai_settings, screen, ship, bullets)
-        
+
+
 def check_keyup_events(event, ship):
     """
     Реагирует на отпускание клавиш.
@@ -35,7 +37,7 @@ def check_keyup_events(event, ship):
         ship.moving_up = False
     elif event.key == pygame.K_DOWN:
         ship.moving_down = False
-    
+
 
 def check_events(ai_settings, screen, ship, bullets):
     """
@@ -48,7 +50,7 @@ def check_events(ai_settings, screen, ship, bullets):
             check_keyup_events(event, ship)
         elif event.type == pygame.KEYDOWN:
             check_keydown_events(event, ship, screen, ai_settings, bullets)
-        
+
 
 def update_screen(ai_settings, screen, ship, bullets, hero):
     """
@@ -64,6 +66,7 @@ def update_screen(ai_settings, screen, ship, bullets, hero):
     # Отображаение последнего прорисованного экрана.
     pygame.display.flip()
 
+
 def update_bullets(bullets):
     """
     Обновление пуль на экране.
@@ -74,6 +77,7 @@ def update_bullets(bullets):
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
 
+
 def fire_bullet(ai_settings, screen, ship, bullets):
     """
     Выпускает пулю, если максимум еще не достигнут.
@@ -81,5 +85,3 @@ def fire_bullet(ai_settings, screen, ship, bullets):
     if len(bullets) < ai_settings.bullets_allowed:
         new_bullet = Bullet(ai_settings, screen, ship)
         bullets.add(new_bullet)
-
-

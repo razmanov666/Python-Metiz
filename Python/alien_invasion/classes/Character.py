@@ -14,7 +14,7 @@ class Character():
         self.image = pygame.image.load("images/hero_sashka_small.bmp")
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
-        
+
         # Сашка появляется по центру
         self.rect.x = self.rect.width
         self.rect.y = self.rect.height

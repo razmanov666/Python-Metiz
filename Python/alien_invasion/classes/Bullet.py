@@ -23,7 +23,7 @@ class Bullet(Sprite):
 
         self.color = ai_settings.bullet_color
         self.speed_factor = ai_settings.bullet_speed
-    
+
     def update(self):
         """
         Перемещает пулю вверх по экрану.
