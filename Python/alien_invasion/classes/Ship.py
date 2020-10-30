@@ -1,14 +1,17 @@
 import pygame
- 
+
+
 class Ship():
-    """A class to manage the ship."""
- 
+    """
+    A class to manage the ship.
+    """
+
     def __init__(self, ai_settings, screen):
         """Инициализирует корабль и задает его начальную позицию."""
         self.screen = screen
         self.settings = ai_settings
         self.screen_rect = screen.get_rect()
-        
+
         # Загрузка изображения корабля.
         self.image = pygame.image.load('images/ship.bmp')
         self.rect = self.image.get_rect()
@@ -25,7 +28,7 @@ class Ship():
         self.moving_left = False
         self.moving_up = False
         self.moving_down = False
-        
+
     def update(self):
         """Обновляет позицию корабля с учетом флагов."""
         # Обновляется атрибут center, не rect.
@@ -44,14 +47,13 @@ class Ship():
         self.rect.centery = self.centery
 
     def update_icon(self):
-        """
-        Изменение иконки для имитации анимации.
-        """
+        """Изменение иконки для имитации анимации."""
         if self.moving_right:
             if self.moving_up:
                 self.image = pygame.image.load('images/ship_move_up_right.bmp')
             elif self.moving_down:
-                self.image = pygame.image.load('images/ship_move_down_right.bmp')
+                self.image = pygame.image.load(
+                    'images/ship_move_down_right.bmp')
             else:
                 self.image = pygame.image.load('images/ship_move_right.bmp')
 
@@ -59,19 +61,18 @@ class Ship():
             if self.moving_up:
                 self.image = pygame.image.load('images/ship_move_up_left.bmp')
             elif self.moving_down:
-                self.image = pygame.image.load('images/ship_move_down_left.bmp')
+                self.image = pygame.image.load(
+                    'images/ship_move_down_left.bmp')
             else:
                 self.image = pygame.image.load('images/ship_move_left.bmp')
-
-        if (self.moving_down and self.moving_right == False 
-                                    and self.moving_left == False):
-
+        if (self.moving_down and self.moving_right == False
+                and self.moving_left == False):
             self.image = pygame.image.load('images/ship_move_down.bmp')
-        elif (self.moving_up and self.moving_right == False 
-                                    and self.moving_left == False):
+        elif (self.moving_up and self.moving_right == False
+              and self.moving_left == False):
 
             self.image = pygame.image.load('images/ship.bmp')
-    
+
     # def restore_icon(self):
     #     """
     #     Возвращение иконки для имитации анимации.
