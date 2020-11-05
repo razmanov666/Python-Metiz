@@ -3,7 +3,7 @@ import pygame
 sys.path.append('classes')
 from Alien import Alien
 from Bullet import Bullet
-
+from random import randint
 
 def check_keydown_events(event, ship, screen, ai_settings, bullets):
     """
@@ -38,7 +38,6 @@ def check_keyup_events(event, ship):
         ship.moving_up = False
     elif event.key == pygame.K_DOWN:
         ship.moving_down = False
-
 
 
 def check_events(ai_settings, screen, ship, bullets):
@@ -106,9 +105,11 @@ def create_alien(ai_settings, screen, aliens, alien_number, row_number):
     """Создает пришельца и размещает его в ряду."""
     alien = Alien(ai_settings, screen)
     alien_width = alien.rect.width
-    alien.x = alien_width + 2 * alien_width * alien_number
+    random_number = randint(-40,40)
+    alien.x = alien_width + 2 * alien_width * alien_number + random_number
     alien.rect.x = alien.x
-    alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
+    alien.rect.y = (alien.rect.height + 2 * alien.rect.height * 
+                                row_number + random_number)
     aliens.add(alien)
 
 def create_fleet(ai_settings, screen, ship, aliens):
