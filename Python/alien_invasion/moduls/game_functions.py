@@ -40,6 +40,7 @@ def check_keyup_events(event, ship):
         ship.moving_down = False
 
 
+
 def check_events(ai_settings, screen, ship, bullets):
     """
     Обрабатывает нажатия клавиш и движение мыши.
