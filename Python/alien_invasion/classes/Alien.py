@@ -1,4 +1,5 @@
 import pygame
+import random
 from pygame.sprite import Sprite
 class Alien(Sprite):
     """Класс представляющий одного пришельца."""
@@ -14,24 +15,26 @@ class Alien(Sprite):
         self.rect = self.image.get_rect()
 
         # Каждый новый пришелец появляется в верхнем левом углу экрана. 
-        self.rect.x = self.rect.width
-        self.rect.y = self.rect.height
+        self.rect.x = random.randint(0, self.screen.get_rect().width)
+        self.rect.y = 0
 
         # Сохранение точной позиции пришельца.
         self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
 
     def check_edges(self):
         """Возвращает True, если пришелец находится у границы экрана."""
         screen_rect = self.screen.get_rect()
-        if self.rect.right >= screen_rect.right:
+        if self.rect.bottom >= screen_rect.bottom:
             return True
         elif self.rect.left <= 0:
             return True
 
     def update(self):
-        """Перемещает пришельца вправо."""
-        self.x += (self.ai_settings.alien_speed_factor *
+        """Перемещает пришельца вниз."""
+        self.y += (self.ai_settings.alien_speed_factor *
                         self.ai_settings.fleet_direction)
+        self.rect.y = self.y
         self.rect.x = self.x
 
     def blitme(self):

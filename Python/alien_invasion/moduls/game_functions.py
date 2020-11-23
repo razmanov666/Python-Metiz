@@ -108,7 +108,7 @@ def create_alien(ai_settings, screen, aliens, alien_number, row_number):
     """Создает пришельца и размещает его в ряду."""
     alien = Alien(ai_settings, screen)
     alien_width = alien.rect.width
-    alien.x = alien_width + 2 * alien_width * alien_number
+    #alien.x = alien_width + 2 * alien_width * alien_number
     alien.rect.x = alien.x
     alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
     aliens.add(alien)
@@ -116,17 +116,17 @@ def create_alien(ai_settings, screen, aliens, alien_number, row_number):
 def create_fleet(ai_settings, screen, ship, aliens):
     """Создает флот пришельцев."""
     # Создание пришельца и вычисление кол-ва пришельцев в ряду.
-    ai_settings.alien_speed_factor *= ai_settings.speed_increment
+    #ai_settings.alien_speed_factor *= ai_settings.speed_increment
     alien = Alien(ai_settings, screen)
-    number_aliens_x = get_number_aliens_x(ai_settings, alien.rect.width)
-    number_rows = get_number_rows(ai_settings, ship.rect.height, 
-                                                    alien.rect.height)
+    number_aliens_x = 1
+    number_rows = 1
 
     # Создание флота пришельцев.
-    for row_number in range(number_rows):
-        for alien_number in range(number_aliens_x):
-            # Создание пришельца и размещение его в ряду.
-            create_alien(ai_settings, screen, aliens, alien_number, row_number)
+    # for row_number in range(number_rows):
+    #     for alien_number in range(number_aliens_x):
+    #         # Создание пришельца и размещение его в ряду.
+    aliens.empty()
+    create_alien(ai_settings, screen, aliens, 1, 1)
 
 def check_bullet_alien_collisions(ai_settings, screen, aliens, ship, bullets):
     """Обработка коллизий пуль с пришельцами."""
@@ -140,11 +140,11 @@ def check_bullet_alien_collisions(ai_settings, screen, aliens, ship, bullets):
         bullets.empty()
         create_fleet(ai_settings, screen, ship, aliens)
 
-def сheck_fleet_edges(ai_settings, aliens):
+def сheck_fleet_edges(ai_settings, screen, ship, aliens):
     """Реагирует на достижение пришельцем края экрана."""
     for alien in aliens.sprites():
-        if alien.check_edges():
-            change_fleet_direction(ai_settings, aliens)
+        if alien.check_edges() or alien.rect.bottom == ship.rect.top:
+            create_fleet(ai_settings, screen, ship, aliens)
             break
 
 def change_fleet_direction(ai_settings, aliens):
@@ -154,10 +154,10 @@ def change_fleet_direction(ai_settings, aliens):
     ai_settings.fleet_direction *= -1
 
 
-def update_aliens(ai_settings, aliens):
+def update_aliens(ai_settings, screen, ship, aliens):
     """
     Проверяет достиг ли флот края экрана,
     после чего обновляет позицию всех пришельцев во флоте.
     """
-    сheck_fleet_edges(ai_settings, aliens)
+    сheck_fleet_edges(ai_settings, screen, ship, aliens)
     aliens.update()
