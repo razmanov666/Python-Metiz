@@ -11,7 +11,7 @@ class Settings():
 
         # Параметры пули
         self.bullet_speed = 7
-        self.bullet_width = 3000
+        self.bullet_width = 3
         self.bullet_height = 9
         self.bullet_color = (250 , 60, 0)
         self.bullets_allowed = 3
