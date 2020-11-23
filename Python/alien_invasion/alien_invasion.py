@@ -25,10 +25,10 @@ def run_game():
 
     # Создание группы хранения пуль.
     bullets = Group()
-    hero = Character(screen)
+    #hero = Character(screen)
 
     # Создание пришельца.
-    alien = Alien(ai_settings, screen)
+    #alien = Alien(ai_settings, screen)
     aliens = Group()
 
     # Создание флота пришельцев.
@@ -38,7 +38,7 @@ def run_game():
     while True:
         gf.check_events(ai_settings, screen, ship, bullets)
         ship.update()
-        gf.update_bullets(bullets)
+        gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
         gf.update_aliens(ai_settings, aliens)
         gf.update_screen(ai_settings, screen, ship, bullets, aliens)
 
