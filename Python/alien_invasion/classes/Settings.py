@@ -7,7 +7,7 @@ class Settings():
         Инициализирует настройки игры
         """
         # Настройки корабля
-        self.ship_speed_factor = 3
+        self.ship_speed_factor = 7
 
         # Параметры пули
         self.bullet_speed = 7
@@ -22,8 +22,8 @@ class Settings():
         self.bg_color = (0 , 60, 70)
 
         # Настройка пришельцев 
-        self.alien_speed_factor = 1
-        self.fleet_drop_speed = 5
+        self.alien_speed_factor = 6
+        self.fleet_drop_speed = 1
         self.speed_increment = 1.25
         # fleet_direction = 1 обозначает движение вправо, а -1 влево.
         self.fleet_direction = 1

@@ -132,7 +132,9 @@ def check_bullet_alien_collisions(ai_settings, screen, aliens, ship, bullets):
     """Обработка коллизий пуль с пришельцами."""
     # Проверка попадания в пришельцев.
     # При обнаружениии попадания удалить пулю и пришельца.
-    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    ships = [ship]
+    collisions = pygame.sprite.groupcollide(ships, aliens, False, True)
+
 
     if not aliens:
         # Удаление пуль и пришельцев участвующих в коллизиях.
@@ -143,7 +145,7 @@ def check_bullet_alien_collisions(ai_settings, screen, aliens, ship, bullets):
 def сheck_fleet_edges(ai_settings, screen, ship, aliens):
     """Реагирует на достижение пришельцем края экрана."""
     for alien in aliens.sprites():
-        if alien.check_edges() or alien.rect.bottom == ship.rect.top:
+        if alien.check_edges():
             create_fleet(ai_settings, screen, ship, aliens)
             break
 

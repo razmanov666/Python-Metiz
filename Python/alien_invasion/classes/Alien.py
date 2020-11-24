@@ -11,7 +11,7 @@ class Alien(Sprite):
         self.ai_settings = ai_settings
 
         # Загрузка изображения пришельца и назначение атрибута rect.
-        self.image = pygame.image.load('images/hero_sashka_small.bmp')
+        self.image = pygame.image.load('images/ball.png')
         self.rect = self.image.get_rect()
 
         # Каждый новый пришелец появляется в верхнем левом углу экрана. 
