@@ -3,6 +3,7 @@ import pygame
 sys.path.append('classes')
 from Alien import Alien
 from Bullet import Bullet
+from time import sleep
 
 
 def check_keydown_events(event, ship, screen, ai_settings, bullets):
@@ -52,6 +53,25 @@ def check_events(ai_settings, screen, ship, bullets):
             check_keyup_events(event, ship)
         elif event.type == pygame.KEYDOWN:
             check_keydown_events(event, ship, screen, ai_settings, bullets)
+
+def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
+    """Обработка столкновения корабля с пришельцем."""
+    if stats.ships_left > 0:
+        # Уменьшение ships_left.
+        stats.ships_left -= 1
+
+        # Очистка списков пришельцев и пуль.
+        aliens.empty()
+        bullets.empty()
+
+        # Создание нового флота и размещение корабля в центре.
+        create_fleet(ai_settings, screen, ship, aliens)
+        ship.center_ship()
+
+        # Пауза.
+        sleep(1)
+    else:
+        stats.game_active = False
 
 
 def update_screen(ai_settings, screen, ship, bullets, aliens):
@@ -147,10 +167,25 @@ def change_fleet_direction(ai_settings, aliens):
     ai_settings.fleet_direction *= -1
 
 
-def update_aliens(ai_settings, aliens):
+def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     """
     Проверяет достиг ли флот края экрана,
     после чего обновляет позицию всех пришельцев во флоте.
     """
     сheck_fleet_edges(ai_settings, aliens)
     aliens.update()
+
+    # Проверка коллизий "Пришелец корабль".
+    if pygame.sprite.spritecollideany(ship, aliens):
+        ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+    # Проверка пришельцев на столкновение с нижим краем экрана.
+    check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets)
+
+def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
+    """Проверяет добралисьли пришельцы до нижнего края экрана."""
+    screen_rect = screen.get_rect()
+    for alien in aliens.sprites():
+        if alien.image.get_rect().bottom >= screen_rect.bottom:
+            # Происходит то же, что и при столкновении с кораблем.
+            ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+            break

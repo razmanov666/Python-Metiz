@@ -82,3 +82,9 @@ class Ship():
     def blitme(self):
         """Draw the ship at its current location."""
         self.screen.blit(self.image, self.rect)
+
+    def center_ship(self):
+        """Размещает корабль в центре нижней стороны."""
+        self.image = pygame.image.load('images/ship.bmp')
+        self.rect.midbottom = self.screen_rect.midbottom
+
