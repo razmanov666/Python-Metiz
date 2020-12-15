@@ -19,6 +19,7 @@ class Alien(Sprite):
 
         # Сохранение точной позиции пришельца.
         self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
 
     def check_edges(self):
         """Возвращает True, если пришелец находится у границы экрана."""

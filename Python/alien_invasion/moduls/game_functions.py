@@ -2,6 +2,7 @@ import sys
 import pygame
 sys.path.append('classes')
 from Alien import Alien
+from Ship import Ship
 from Bullet import Bullet
 from time import sleep
 
@@ -42,7 +43,7 @@ def check_keyup_events(event, ship):
 
 
 
-def check_events(ai_settings, screen, ship, bullets):
+def check_events(ai_settings, stats, screen, play_button, ship, aliens, bullets):
     """
     Обрабатывает нажатия клавиш и движение мыши.
     """
@@ -53,6 +54,31 @@ def check_events(ai_settings, screen, ship, bullets):
             check_keyup_events(event, ship)
         elif event.type == pygame.KEYDOWN:
             check_keydown_events(event, ship, screen, ai_settings, bullets)
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            check_play_button(ai_settings, screen, stats, play_button ,ship ,
+                                        aliens, bullets, mouse_x, mouse_y)
+    
+def check_play_button(ai_settings, screen, stats, play_button ,ship , aliens,
+                        bullets, mouse_x, mouse_y):
+    """Запускает новую игру при нажатии кнопки Play."""
+    button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
+    if button_clicked and not stats.game_active:
+        # Указатель мыши скрывается.
+        pygame.mouse.set_visible(False)
+
+        # Сброс игровой статистики.
+        stats.reset_stats()
+        stats.game_active = True
+
+        # Очистка пришельцев и пуль.
+        aliens.empty()
+        bullets.empty()
+
+        # Создание нового флота и размещение корабля в центре.
+        create_fleet(ai_settings, screen, ship, aliens)
+        ship.center_ship()
+
 
 def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     """Обработка столкновения корабля с пришельцем."""
@@ -67,14 +93,16 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
         # Создание нового флота и размещение корабля в центре.
         create_fleet(ai_settings, screen, ship, aliens)
         ship.center_ship()
+        ship.reset_pos_ship()
 
         # Пауза.
         sleep(1)
     else:
         stats.game_active = False
+        pygame.mouse.set_visible(True)
+    
 
-
-def update_screen(ai_settings, screen, ship, bullets, aliens):
+def update_screen(ai_settings, stats, screen, ship, bullets, aliens, play_button):
     """
     Отрисовывает изображение на экране.
     """
@@ -86,6 +114,11 @@ def update_screen(ai_settings, screen, ship, bullets, aliens):
     ship.blitme()
     aliens.draw(screen)
     # hero.blitme()
+
+    # Кнопка Play отображается в том случае если игра неактивна.
+    if not stats.game_active:
+        play_button.draw_button()
+
     # Отображаение последнего прорисованного экрана.
     pygame.display.flip()
 
@@ -146,7 +179,6 @@ def create_fleet(ai_settings, screen, ship, aliens):
     number_aliens_x = get_number_aliens_x(ai_settings, alien.rect.width)
     number_rows = get_number_rows(ai_settings, ship.rect.height, 
                                                     alien.rect.height)
-
     # Создание флота пришельцев.
     for row_number in range(number_rows):
         for alien_number in range(number_aliens_x):
@@ -185,7 +217,7 @@ def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
     """Проверяет добралисьли пришельцы до нижнего края экрана."""
     screen_rect = screen.get_rect()
     for alien in aliens.sprites():
-        if alien.image.get_rect().bottom >= screen_rect.bottom:
+        if alien.rect.bottom >= screen_rect.bottom:
             # Происходит то же, что и при столкновении с кораблем.
             ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
             break
