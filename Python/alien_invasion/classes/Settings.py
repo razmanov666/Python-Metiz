@@ -20,7 +20,7 @@ class Settings():
         # Параметры экрана
         self.screen_width = 1366
         self.screen_height = 720
-        self.bg_color = (0 , 60, 70)
+        self.bg_color = (10, 10, 10)
 
         # Настройка пришельцев 
         self.alien_speed_factor = 100
