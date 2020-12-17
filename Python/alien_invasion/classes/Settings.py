@@ -22,7 +22,8 @@ class Settings():
         self.screen_height = 720
         self.bg_color = (10, 10, 10)
 
-        # Настройка пришельцев 
+        # Настройка пришельцев
+        self.start_alied_speed_factor = 1 
         self.alien_speed_factor = 1
         self.fleet_drop_speed = 5
         self.speed_increment = 1.25

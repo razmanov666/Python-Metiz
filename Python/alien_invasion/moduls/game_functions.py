@@ -7,7 +7,8 @@ from Bullet import Bullet
 from time import sleep
 
 
-def check_keydown_events(event, ship, screen, ai_settings, bullets):
+def check_keydown_events(ai_settings, screen, stats, play_button, ship, aliens, 
+            bullets, event):
     """
     Реагирует на нажитие клавиш.
     """
@@ -23,10 +24,11 @@ def check_keydown_events(event, ship, screen, ai_settings, bullets):
         sys.exit()
     elif event.key == pygame.K_ESCAPE:
         sys.exit()
+    if event.key == pygame.K_p:
+        start_game(ai_settings, screen, stats, ship, aliens, bullets)
     if event.key == pygame.K_SPACE:
         # Создание новой пули и включение ее в группу
         fire_bullet(ai_settings, screen, ship, bullets)
-
 
 def check_keyup_events(event, ship):
     """
@@ -41,8 +43,6 @@ def check_keyup_events(event, ship):
     elif event.key == pygame.K_DOWN:
         ship.moving_down = False
 
-
-
 def check_events(ai_settings, stats, screen, play_button, ship, aliens, bullets):
     """
     Обрабатывает нажатия клавиш и движение мыши.
@@ -53,32 +53,36 @@ def check_events(ai_settings, stats, screen, play_button, ship, aliens, bullets)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, ship)
         elif event.type == pygame.KEYDOWN:
-            check_keydown_events(event, ship, screen, ai_settings, bullets)
+            check_keydown_events(ai_settings, screen, stats, 
+                    play_button, ship, aliens, bullets, event)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             check_play_button(ai_settings, screen, stats, play_button ,ship ,
-                                        aliens, bullets, mouse_x, mouse_y)
+                                    aliens, bullets, mouse_x, mouse_y, event)
     
 def check_play_button(ai_settings, screen, stats, play_button ,ship , aliens,
-                        bullets, mouse_x, mouse_y):
+                        bullets, mouse_x, mouse_y, event):
     """Запускает новую игру при нажатии кнопки Play."""
     button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
-    if button_clicked and not stats.game_active:
-        # Указатель мыши скрывается.
-        pygame.mouse.set_visible(False)
+    if (event.type == pygame.K_p or button_clicked) and not stats.game_active:
+        start_game(ai_settings, screen, stats, ship, aliens, bullets)
 
-        # Сброс игровой статистики.
-        stats.reset_stats()
-        stats.game_active = True
+def start_game(ai_settings, screen, stats, ship, aliens, bullets):
+    # Указатель мыши скрывается.
+    pygame.mouse.set_visible(False)
 
-        # Очистка пришельцев и пуль.
-        aliens.empty()
-        bullets.empty()
+    # Сброс игровой статистики.
+    stats.reset_stats()
+    stats.game_active = True
 
-        # Создание нового флота и размещение корабля в центре.
-        create_fleet(ai_settings, screen, ship, aliens)
-        ship.center_ship()
+    # Очистка пришельцев и пуль.
+    aliens.empty()
+    bullets.empty()
+    ai_settings.alien_speed_factor = ai_settings.start_alied_speed_factor
 
+    # Создание нового флота и размещение корабля в центре.
+    create_fleet(ai_settings, screen, ship, aliens)
+    ship.center_ship()
 
 def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     """Обработка столкновения корабля с пришельцем."""
@@ -100,8 +104,7 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     else:
         stats.game_active = False
         pygame.mouse.set_visible(True)
-    
-
+   
 def update_screen(ai_settings, stats, screen, ship, bullets, aliens, play_button):
     """
     Отрисовывает изображение на экране.
@@ -122,7 +125,6 @@ def update_screen(ai_settings, stats, screen, ship, bullets, aliens, play_button
     # Отображаение последнего прорисованного экрана.
     pygame.display.flip()
 
-
 def update_bullets(ai_settings, screen, ship, aliens, bullets):
     """
     Обновление пуль на экране.
@@ -139,7 +141,6 @@ def update_bullets(ai_settings, screen, ship, aliens, bullets):
         # Уничтожение существующих пуль и создание новго флота.
         bullets.empty()
         create_fleet(ai_settings, screen, ship, aliens)    
-
 
 def fire_bullet(ai_settings, screen, ship, bullets):
     """
@@ -197,7 +198,6 @@ def change_fleet_direction(ai_settings, aliens):
     for alien in aliens.sprites():
         alien.rect.y += ai_settings.fleet_drop_speed
     ai_settings.fleet_direction *= -1
-
 
 def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     """
