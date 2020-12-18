@@ -65,6 +65,7 @@ def check_play_button(ai_settings, screen, stats, play_button ,ship , aliens,
     """Запускает новую игру при нажатии кнопки Play."""
     button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
     if (event.type == pygame.K_p or button_clicked) and not stats.game_active:
+        ai_settings.initialize_dynamic_settings()
         start_game(ai_settings, screen, stats, ship, aliens, bullets)
 
 def start_game(ai_settings, screen, stats, ship, aliens, bullets):
@@ -78,7 +79,7 @@ def start_game(ai_settings, screen, stats, ship, aliens, bullets):
     # Очистка пришельцев и пуль.
     aliens.empty()
     bullets.empty()
-    ai_settings.alien_speed_factor = ai_settings.start_alied_speed_factor
+    ai_settings.initialize_dynamic_settings()
 
     # Создание нового флота и размещение корабля в центре.
     create_fleet(ai_settings, screen, ship, aliens)
@@ -105,7 +106,8 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
         stats.game_active = False
         pygame.mouse.set_visible(True)
    
-def update_screen(ai_settings, stats, screen, ship, bullets, aliens, play_button):
+def update_screen(ai_settings, stats, sb, screen, ship, bullets, aliens, 
+            play_button):
     """
     Отрисовывает изображение на экране.
     """
@@ -118,6 +120,9 @@ def update_screen(ai_settings, stats, screen, ship, bullets, aliens, play_button
     aliens.draw(screen)
     # hero.blitme()
 
+    # Вывод счета.
+    sb.show_score()
+
     # Кнопка Play отображается в том случае если игра неактивна.
     if not stats.game_active:
         play_button.draw_button()
@@ -125,13 +130,17 @@ def update_screen(ai_settings, stats, screen, ship, bullets, aliens, play_button
     # Отображаение последнего прорисованного экрана.
     pygame.display.flip()
 
-def update_bullets(ai_settings, screen, ship, aliens, bullets):
+def update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets):
     """
     Обновление пуль на экране.
     """
     # Проверка попадания в пришельцев.
     # При обнаружениии попадания удалить пулю и пришельца.
     collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    if collisions:
+        for aliens in collisions.values():
+            stats.score += ai_settings.alien_points * len(aliens)
+            sb.prep_score()
     bullets.update()
     # Удаление пуль вышедших за край экрана.
     for bullet in bullets.copy():
@@ -140,6 +149,7 @@ def update_bullets(ai_settings, screen, ship, aliens, bullets):
     if not aliens:
         # Уничтожение существующих пуль и создание новго флота.
         bullets.empty()
+        ai_settings.increase_speed()
         create_fleet(ai_settings, screen, ship, aliens)    
 
 def fire_bullet(ai_settings, screen, ship, bullets):
