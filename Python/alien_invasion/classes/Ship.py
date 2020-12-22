@@ -1,13 +1,15 @@
 import pygame
 from time import sleep
+from pygame.sprite import Sprite
 
-class Ship():
+class Ship(Sprite):
     """
     A class to manage the ship.
     """
 
     def __init__(self, ai_settings, screen):
         """Инициализирует корабль и задает его начальную позицию."""
+        super(Ship, self).__init__()
         self.screen = screen
         self.settings = ai_settings
         self.screen_rect = screen.get_rect()

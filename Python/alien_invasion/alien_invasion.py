@@ -36,7 +36,7 @@ def run_game():
     aliens = Group()
 
     # Создание экземпляра игровой статистики и счета.
-    stats = GameStats(ai_settings)
+    stats = GameStats(ai_settings) 
     sb = Scoreboard(ai_settings, screen, stats)
 
     # Создание кнопки Play.
@@ -47,12 +47,12 @@ def run_game():
 
     # Запуск основного цикла игры.
     while True:
-        gf.check_events(ai_settings, stats, screen, play_button, ship, aliens, bullets)
+        gf.check_events(ai_settings, stats, sb, screen, play_button, ship, aliens, bullets)
         if stats.game_active:
             ship.update()
             gf.update_bullets(ai_settings, screen, stats, sb, 
                                             ship, aliens, bullets)
-            gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
+            gf.update_aliens(ai_settings, stats, sb, screen, ship, aliens, bullets)
         gf.update_screen(ai_settings, stats, sb, screen, ship, bullets, aliens, 
             play_button)
 
